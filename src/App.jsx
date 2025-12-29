@@ -5,6 +5,8 @@ function App() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [hoveredItem, setHoveredItem] = useState(null)
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
   // Load filters from localStorage or use defaults
   const [filters, setFilters] = useState(() => {
@@ -36,7 +38,7 @@ function App() {
   })
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/data.json`)
+    fetch(`${import.meta.env.BASE_URL}data.json`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to load data')
@@ -181,6 +183,21 @@ function App() {
     })
   }
 
+  const handleMouseEnter = (item, event, tierId) => {
+    if (tierId === 'crafting' && item.craftsInto && item.craftsInto.length > 0) {
+      const rect = event.currentTarget.getBoundingClientRect()
+      setTooltipPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.top - 10
+      })
+      setHoveredItem(item)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null)
+  }
+
   return (
     <div className="tiermaker-container">
       <h1 className="title">ARC Raider Items</h1>
@@ -288,7 +305,12 @@ function App() {
             </div>
             <div className="tier-items">
               {tier.items.map(item => (
-                <div key={item.id} className={`tier-item rarity-${item.rarity.toLowerCase()}`}>
+                <div
+                  key={item.id}
+                  className={`tier-item rarity-${item.rarity.toLowerCase()}`}
+                  onMouseEnter={(e) => handleMouseEnter(item, e, tier.id)}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <img
                     src={item.image}
                     alt={item.name}
@@ -325,6 +347,27 @@ function App() {
           ))}
         </div>
       </div>
+
+      {hoveredItem && (
+        <div
+          className="tooltip"
+          style={{
+            left: `${tooltipPosition.x}px`,
+            top: `${tooltipPosition.y}px`,
+          }}
+        >
+          <div className="tooltip-header">Crafts Into:</div>
+          <div className="tooltip-content">
+            {[...hoveredItem.craftsInto]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((craft, index) => (
+                <div key={index} className="tooltip-item">
+                  {craft.name}
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
