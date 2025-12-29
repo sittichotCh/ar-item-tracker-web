@@ -1,0 +1,313 @@
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-card: #242424;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --border-color: #404040;
+  --accent-color: #646cff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+}
+
+.tiermaker-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: var(--text-primary);
+}
+
+.filters-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.filter-group select,
+.filter-group input[type="checkbox"] {
+  padding: 0.5rem;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.filter-group input[type="checkbox"] {
+  width: auto;
+  height: 1.2rem;
+  padding: 0;
+}
+
+.filter-group select:hover,
+.filter-group input[type="checkbox"]:hover {
+  border-color: var(--accent-color);
+}
+
+.filter-group select:focus,
+.filter-group input[type="checkbox"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.tiers {
+  margin-bottom: 2rem;
+}
+
+.tier-row {
+  display: flex;
+  margin-bottom: 2px;
+  min-height: 100px;
+  background-color: var(--bg-secondary);
+}
+
+.tier-label {
+  width: 200px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #000;
+  text-align: center;
+  border-right: 2px solid var(--bg-primary);
+}
+
+.tier-name {
+  word-wrap: break-word;
+}
+
+.tier-items {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  align-items: flex-start;
+  align-content: flex-start;
+  min-height: 100px;
+}
+
+.tier-item {
+  width: 100px;
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+}
+
+.tier-item:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+/* Rarity border colors */
+.tier-item.rarity-common {
+  border-color: #ffffff;
+}
+
+.tier-item.rarity-uncommon {
+  border-color: #22c55e;
+}
+
+.tier-item.rarity-rare {
+  border-color: #3b82f6;
+}
+
+.tier-item.rarity-epic {
+  border-color: #a855f7;
+}
+
+.tier-item.rarity-legendary {
+  border-color: #f97316;
+}
+
+/* Hover effects for each rarity */
+.tier-item.rarity-common:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.tier-item.rarity-uncommon:hover {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.tier-item.rarity-rare:hover {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.tier-item.rarity-epic:hover {
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.tier-item.rarity-legendary:hover {
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+.tier-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.tier-item-name {
+  font-size: 0.7rem;
+  color: var(--text-primary);
+  text-align: center;
+  margin-top: 4px;
+  word-wrap: break-word;
+}
+
+.tier-item-value {
+  font-size: 0.65rem;
+  color: #fbbf24;
+  text-align: center;
+  margin-top: 2px;
+  font-weight: 600;
+  overflow-wrap: break-word;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.unassigned-section {
+  margin-top: 3rem;
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.unassigned-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+}
+
+.unassigned-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 150px;
+  padding: 1rem;
+  background-color: var(--bg-card);
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .tier-label {
+    width: 150px;
+    min-width: 150px;
+    font-size: 1rem;
+  }
+
+  .tier-item {
+    width: 90px;
+  }
+
+  .tier-item-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .tier-item-name {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tiermaker-container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .tier-row {
+    flex-direction: column;
+  }
+
+  .tier-label {
+    width: 100%;
+    min-height: 50px;
+    border-right: none;
+    border-bottom: 2px solid var(--bg-primary);
+  }
+
+  .tier-item {
+    width: 80px;
+  }
+
+  .tier-item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tier-item-name {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .tier-item {
+    width: 70px;
+  }
+
+  .tier-item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .tier-item-name {
+    font-size: 0.55rem;
+  }
+}
